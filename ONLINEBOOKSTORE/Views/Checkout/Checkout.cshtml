@@ -1,0 +1,36 @@
+﻿@model CheckoutViewModel
+
+<h2>Checkout</h2>
+
+@if (Model.CartItems.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Book</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CartItems)
+            {
+                <tr>
+                    <td>@item.Book.Title</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Book.Price.ToString("C")</td>
+                    <td>@(item.Quantity * item.Book.Price)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h3>Total: @Model.TotalPrice.ToString("C")</h3>
+}
+else
+{
+    <p>Your cart is empty.</p>
+}
+
+<a asp-controller="Checkout" asp-action="PaymentAddress" class="btn btn-primary">Continue for Payment</a>
